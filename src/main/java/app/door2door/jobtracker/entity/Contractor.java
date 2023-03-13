@@ -21,6 +21,12 @@ public class Contractor {
     @GeneratedValue
     private Integer id;
 
+    private String name;
+
+    private String phoneNumber;
+
+    private String email;
+
     @OneToMany(mappedBy = "builder")
     private List<Job> jobs = new ArrayList<>();
 
