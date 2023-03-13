@@ -6,7 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Builder
@@ -22,8 +23,26 @@ public class Job {
 
     private String address;
 
+    @Enumerated(EnumType.STRING)
+    private Status status;
+
+    private String lockStatus;
+
+    private String shelvingStatus;
+
+    private String showerStatus;
+
+    private String mirrorStatus;
+
     @OneToMany(mappedBy = "job")
-//    @JoinColumn(name = "job_id")
-    private Set<WorkLog> workLogs;
+    private List<WorkLog> workLogs = new ArrayList<>();
+
+    @ManyToOne
+    @JoinColumn(name = "builder_id", nullable = false)
+    private Contractor builder;
+
+    private String createdBy;
+
+    private java.sql.Timestamp createdAt;
 
 }
