@@ -18,6 +18,27 @@ public class WorkLog {
     @GeneratedValue
     private Integer id;
 
+    private java.sql.Timestamp submittedAt;
+
+    private String employeeName;
+
+    private String jobSiteAddress;
+
+    @Enumerated(EnumType.STRING)
+    private Category category;
+
+    private java.sql.Date workDate;
+
+    private java.sql.Time startTime;
+
+    private java.sql.Time endTime;
+
+    private String workCompleted;
+
+    private boolean isCompleted;
+
+    private String incompleteItems;
+
     @ManyToOne
     @JoinColumn(name = "job_id", nullable = false)
     private Job job;
