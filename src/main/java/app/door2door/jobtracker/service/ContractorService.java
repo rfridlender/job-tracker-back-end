@@ -2,12 +2,9 @@ package app.door2door.jobtracker.service;
 
 import app.door2door.jobtracker.dto.ContractorRequest;
 import app.door2door.jobtracker.entity.Contractor;
-import app.door2door.jobtracker.entity.Job;
 import app.door2door.jobtracker.repository.ContractorRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -21,7 +18,6 @@ public class ContractorService {
                 .name(request.getName())
                 .phoneNumber(request.getPhoneNumber())
                 .email(request.getEmail())
-//                .jobs(new ArrayList<Job>())
                 .build();
         contractorRepository.save(contractor);
         return contractor;
@@ -29,5 +25,13 @@ public class ContractorService {
 
     public List<Contractor> index() {
         return contractorRepository.findAll();
+    }
+
+    public Contractor show(Integer contractorId) { return contractorRepository.findById(contractorId).orElseThrow(); }
+
+    public Contractor delete(Integer contractorId) {
+        Contractor contractor = contractorRepository.findById(contractorId).orElseThrow();
+        contractorRepository.delete(contractor);
+        return contractor;
     }
 }

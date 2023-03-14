@@ -17,16 +17,28 @@ public class ContractorController {
 
     private final ContractorService service;
 
+    @GetMapping
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER')")
+    public ResponseEntity<List<Contractor>> index() {
+        return ResponseEntity.ok(service.index());
+    }
+
+    @GetMapping("/{contractorId}")
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER')")
+    public ResponseEntity<Contractor> show(@PathVariable Integer contractorId) {
+        return ResponseEntity.ok(service.show(contractorId));
+    }
+
     @PostMapping
     @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<Contractor> create(@RequestBody ContractorRequest request) {
         return ResponseEntity.ok(service.create(request));
     }
 
-    @GetMapping
-    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER')")
-    public ResponseEntity<List<Contractor>> index() {
-        return ResponseEntity.ok(service.index());
+    @DeleteMapping("/{contractorId}")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public ResponseEntity<Contractor> delete(@PathVariable Integer contractorId) {
+        return ResponseEntity.ok(service.delete(contractorId));
     }
 
 }

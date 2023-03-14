@@ -9,7 +9,6 @@ import app.door2door.jobtracker.repository.WorkLogRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-
 import java.sql.Time;
 import java.sql.Timestamp;
 
