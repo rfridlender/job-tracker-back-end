@@ -1,6 +1,7 @@
 package app.door2door.jobtracker.controller;
 
 import app.door2door.jobtracker.dto.JobRequest;
+import app.door2door.jobtracker.dto.JobUpdateRequest;
 import app.door2door.jobtracker.entity.*;
 import app.door2door.jobtracker.service.JobService;
 import lombok.RequiredArgsConstructor;
@@ -17,12 +18,6 @@ public class JobController {
 
     private final JobService service;
 
-    @PostMapping
-    @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity<Job> create(@RequestBody JobRequest request) {
-        return ResponseEntity.ok(service.create(request));
-    }
-
     @GetMapping
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER')")
     public ResponseEntity<List<Job>> index() {
@@ -33,6 +28,24 @@ public class JobController {
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER')")
     public ResponseEntity<Job> show(@PathVariable Integer jobId) {
         return ResponseEntity.ok(service.show(jobId));
+    }
+
+    @PostMapping
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public ResponseEntity<Job> create(@RequestBody JobRequest request) {
+        return ResponseEntity.ok(service.create(request));
+    }
+
+    @PutMapping("/{jobId}")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public ResponseEntity<Job> update(@PathVariable Integer jobId, @RequestBody JobUpdateRequest request) {
+        return ResponseEntity.ok(service.update(jobId, request));
+    }
+
+    @DeleteMapping("/{jobId}")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public ResponseEntity<Job> delete(@PathVariable Integer jobId) {
+        return ResponseEntity.ok(service.delete(jobId));
     }
 
 }

@@ -1,6 +1,7 @@
 package app.door2door.jobtracker.service;
 
 import app.door2door.jobtracker.dto.JobRequest;
+import app.door2door.jobtracker.dto.JobUpdateRequest;
 import app.door2door.jobtracker.dto.UserDto;
 import app.door2door.jobtracker.entity.*;
 import app.door2door.jobtracker.mapper.UserDtoMapper;
@@ -43,5 +44,24 @@ public class JobService {
 
     public Job show(Integer jobId) {
         return jobRepository.findById(jobId).orElseThrow();
+    }
+
+    public Job update(Integer jobId, JobUpdateRequest request) {
+        Job job = jobRepository.findById(jobId).orElseThrow();
+        job.setAddress(request.getAddress());
+        job.setStatus(request.getStatus());
+        job.setLockStatus(request.getLockStatus());
+        job.setShelvingStatus(request.getShelvingStatus());
+        job.setShowerStatus(request.getShowerStatus());
+        job.setMirrorStatus(request.getMirrorStatus());
+        job.setContractor(request.getContractor());
+        jobRepository.save(job);
+        return job;
+    }
+
+    public Job delete(Integer jobId) {
+        Job job = jobRepository.findById(jobId).orElseThrow();
+        jobRepository.delete(job);
+        return job;
     }
 }
