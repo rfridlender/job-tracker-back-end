@@ -25,8 +25,6 @@ public class WorkLog {
 
     private String employeeName;
 
-    private String jobSiteAddress;
-
     @Enumerated(EnumType.STRING)
     private Category category;
 
@@ -41,9 +39,5 @@ public class WorkLog {
     private boolean isCompleted;
 
     private String incompleteItems;
-
-    @ManyToOne
-    @JoinColumn(name = "job_id", nullable = false)
-    private Job job;
 
 }

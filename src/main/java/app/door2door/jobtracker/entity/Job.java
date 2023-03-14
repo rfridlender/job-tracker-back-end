@@ -34,7 +34,8 @@ public class Job {
 
     private String mirrorStatus;
 
-    @OneToMany(mappedBy = "job")
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "job_id", nullable = false)
     private List<WorkLog> workLogs = new ArrayList<WorkLog>();
 
     @ManyToOne

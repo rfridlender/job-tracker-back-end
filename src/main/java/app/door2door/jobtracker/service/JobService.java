@@ -5,7 +5,6 @@ import app.door2door.jobtracker.dto.JobUpdateRequest;
 import app.door2door.jobtracker.dto.UserDto;
 import app.door2door.jobtracker.entity.*;
 import app.door2door.jobtracker.mapper.UserDtoMapper;
-import app.door2door.jobtracker.repository.ContractorRepository;
 import app.door2door.jobtracker.repository.JobRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,7 +18,6 @@ import java.util.List;
 public class JobService {
 
     private final JobRepository jobRepository;
-    private final ContractorRepository contractorRepository;
     private final UserDtoMapper userDtoMapper;
 
     private UserDto getUser() {

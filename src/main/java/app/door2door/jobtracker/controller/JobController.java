@@ -16,36 +16,36 @@ import java.util.List;
 @RequiredArgsConstructor
 public class JobController {
 
-    private final JobService service;
+    private final JobService jobService;
 
     @GetMapping
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER')")
     public ResponseEntity<List<Job>> index() {
-        return ResponseEntity.ok(service.index());
+        return ResponseEntity.ok(jobService.index());
     }
 
     @GetMapping("/{jobId}")
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER')")
     public ResponseEntity<Job> show(@PathVariable Integer jobId) {
-        return ResponseEntity.ok(service.show(jobId));
+        return ResponseEntity.ok(jobService.show(jobId));
     }
 
     @PostMapping
     @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<Job> create(@RequestBody JobRequest request) {
-        return ResponseEntity.ok(service.create(request));
+        return ResponseEntity.ok(jobService.create(request));
     }
 
     @PutMapping("/{jobId}")
     @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<Job> update(@PathVariable Integer jobId, @RequestBody JobUpdateRequest request) {
-        return ResponseEntity.ok(service.update(jobId, request));
+        return ResponseEntity.ok(jobService.update(jobId, request));
     }
 
     @DeleteMapping("/{jobId}")
     @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<Job> delete(@PathVariable Integer jobId) {
-        return ResponseEntity.ok(service.delete(jobId));
+        return ResponseEntity.ok(jobService.delete(jobId));
     }
 
 }
