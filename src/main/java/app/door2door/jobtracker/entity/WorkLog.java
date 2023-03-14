@@ -36,7 +36,7 @@ public class WorkLog {
 
     private String workCompleted;
 
-    private boolean isCompleted;
+    private boolean completed;
 
     private String incompleteItems;
 

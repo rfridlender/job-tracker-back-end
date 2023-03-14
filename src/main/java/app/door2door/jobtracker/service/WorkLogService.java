@@ -35,30 +35,25 @@ public class WorkLogService {
                 .startTime(new Time(request.getStartTime()))
                 .endTime(new Time(request.getEndTime()))
                 .workCompleted(request.getWorkCompleted())
-                .isCompleted(request.isCompleted())
+                .completed(request.isCompleted())
                 .incompleteItems(request.getIncompleteItems())
-//                .job(request.getJob())
                 .build();
-//        WorkLog savedLog = workLogRepository.save(workLog);
         Job job = jobRepository.findById(jobId).orElseThrow();
         job.getWorkLogs().add(workLog);
-        Job savedJob = jobRepository.save(job);
-        return savedJob;
+        return jobRepository.save(job);
     }
 
     public Job update(Integer jobId, Integer workLogId, WorkLogRequest request) {
+        WorkLog workLog = workLogRepository.findById(workLogId).orElseThrow();
+        workLog.setCategory(request.getCategory());
+        workLog.setWorkDate(request.getWorkDate());
+        workLog.setStartTime(new Time(request.getStartTime()));
+        workLog.setEndTime(new Time(request.getEndTime()));
+        workLog.setWorkCompleted(request.getWorkCompleted());
+        workLog.setCompleted(request.isCompleted());
+        workLog.setIncompleteItems(request.getIncompleteItems());
+        workLogRepository.save(workLog);
+        return jobRepository.findById(jobId).orElseThrow();
     }
 
 }
-
-//    private Integer id;
-//    private java.sql.Timestamp submittedAt;
-//    private String employeeName;
-//    private Category category;
-//    private Date workDate;
-//    private Time startTime;
-//    private Time endTime;
-//    private String workCompleted;
-//    private boolean isCompleted;
-//    private String incompleteItems;
-//    private Job job;

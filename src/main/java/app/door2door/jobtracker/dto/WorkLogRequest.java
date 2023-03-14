@@ -20,7 +20,7 @@ public class WorkLogRequest {
     private Long startTime;
     private Long endTime;
     private String workCompleted;
-    private boolean isCompleted;
+    private boolean completed;
     private String incompleteItems;
 
 }
