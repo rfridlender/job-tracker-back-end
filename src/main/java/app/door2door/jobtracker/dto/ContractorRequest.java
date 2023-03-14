@@ -1,6 +1,5 @@
 package app.door2door.jobtracker.dto;
 
-import app.door2door.jobtracker.entity.Contractor;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,10 +9,11 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class JobRequest {
+public class ContractorRequest {
 
-    private String address;
-    private Contractor contractor;
+    private String name;
+    private String phoneNumber;
+    private String email;
 
 }
 

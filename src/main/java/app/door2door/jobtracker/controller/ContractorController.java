@@ -1,8 +1,8 @@
 package app.door2door.jobtracker.controller;
 
-import app.door2door.jobtracker.dto.JobRequest;
+import app.door2door.jobtracker.dto.ContractorRequest;
 import app.door2door.jobtracker.entity.*;
-import app.door2door.jobtracker.service.JobService;
+import app.door2door.jobtracker.service.ContractorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -11,28 +11,22 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/jobs")
+@RequestMapping("/api/builders")
 @RequiredArgsConstructor
-public class JobController {
+public class ContractorController {
 
-    private final JobService service;
+    private final ContractorService service;
 
     @PostMapping
     @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity<Job> create(@RequestBody JobRequest request) {
+    public ResponseEntity<Contractor> create(@RequestBody ContractorRequest request) {
         return ResponseEntity.ok(service.create(request));
     }
 
     @GetMapping
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER')")
-    public ResponseEntity<List<Job>> index() {
+    public ResponseEntity<List<Contractor>> index() {
         return ResponseEntity.ok(service.index());
-    }
-
-    @GetMapping("/{jobId}")
-    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER')")
-    public ResponseEntity<Job> show(@PathVariable Integer jobId) {
-        return ResponseEntity.ok(service.show(jobId));
     }
 
 }

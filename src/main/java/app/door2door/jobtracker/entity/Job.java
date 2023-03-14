@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +35,7 @@ public class Job {
     private String mirrorStatus;
 
     @OneToMany(mappedBy = "job")
-    private List<WorkLog> workLogs = new ArrayList<>();
+    private List<WorkLog> workLogs = new ArrayList<WorkLog>();
 
     @ManyToOne
     @JoinColumn(name = "contractor_id", nullable = false)

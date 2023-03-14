@@ -27,7 +27,7 @@ public class Contractor {
 
     private String email;
 
-    @OneToMany(mappedBy = "contractor")
-    private List<Job> jobs = new ArrayList<>();
+//    @OneToMany(mappedBy = "contractor", cascade = CascadeType.ALL, orphanRemoval = true)
+//    private List<Job> jobs = new ArrayList<Job>();
 
 }
