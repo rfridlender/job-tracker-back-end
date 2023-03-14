@@ -6,6 +6,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.sql.Date;
+import java.sql.Time;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -27,11 +30,11 @@ public class WorkLog {
     @Enumerated(EnumType.STRING)
     private Category category;
 
-    private java.sql.Date workDate;
+    private Date workDate;
 
-    private java.sql.Time startTime;
+    private Time startTime;
 
-    private java.sql.Time endTime;
+    private Time endTime;
 
     private String workCompleted;
 

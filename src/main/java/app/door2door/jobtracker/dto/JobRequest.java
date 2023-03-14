@@ -1,5 +1,6 @@
 package app.door2door.jobtracker.dto;
 
+import app.door2door.jobtracker.entity.Contractor;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,6 +13,7 @@ import lombok.NoArgsConstructor;
 public class JobRequest {
 
     private String address;
+    private Integer contractorId;
 
 }
 

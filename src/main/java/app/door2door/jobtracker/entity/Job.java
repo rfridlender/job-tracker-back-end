@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,11 +39,11 @@ public class Job {
     private List<WorkLog> workLogs = new ArrayList<>();
 
     @ManyToOne
-    @JoinColumn(name = "builder_id", nullable = false)
-    private Contractor builder;
+    @JoinColumn(name = "contractor_id", nullable = false)
+    private Contractor contractor;
 
     private String createdBy;
 
-    private java.sql.Timestamp createdAt;
+    private Timestamp createdAt;
 
 }

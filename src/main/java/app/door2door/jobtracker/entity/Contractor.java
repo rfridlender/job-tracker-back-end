@@ -14,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "BUILDERS")
+@Table(name = "CONTRACTORS")
 public class Contractor {
 
     @Id
@@ -27,7 +27,7 @@ public class Contractor {
 
     private String email;
 
-    @OneToMany(mappedBy = "builder")
+    @OneToMany(mappedBy = "contractor")
     private List<Job> jobs = new ArrayList<>();
 
 }

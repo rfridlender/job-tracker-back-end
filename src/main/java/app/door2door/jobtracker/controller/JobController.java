@@ -32,27 +32,3 @@ public class JobController {
     }
 
 }
-
-
-//    private Integer id;
-//
-//    private String address;
-//
-//    @Enumerated(EnumType.STRING)
-//    private Status status;
-//
-//    private String lockStatus;
-//
-//    private String shelvingStatus;
-//
-//    private String showerStatus;
-//
-//    private String mirrorStatus;
-//
-//    private List<WorkLog> workLogs = new ArrayList<>();
-//
-//    private Contractor builder;
-//
-//    private String createdBy;
-//
-//    private java.sql.Timestamp createdAt;
