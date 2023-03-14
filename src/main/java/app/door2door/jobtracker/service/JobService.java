@@ -20,6 +20,10 @@ public class JobService {
     private final JobRepository jobRepository;
     private final UserDtoMapper userDtoMapper;
 
+//    public List<Job> test(Integer id) {
+//        return jobRepository.findByContractorId(id);
+//    }
+
     private UserDto getUser() {
         User principal = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return userDtoMapper.apply(principal);
@@ -62,4 +66,5 @@ public class JobService {
         jobRepository.delete(job);
         return job;
     }
+
 }

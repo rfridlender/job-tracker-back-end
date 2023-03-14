@@ -17,6 +17,11 @@ public class JobController {
 
     private final JobService jobService;
 
+//    @GetMapping("/test/{id}")
+//    public ResponseEntity<List<Job>> test(@PathVariable Integer id) {
+//        return  ResponseEntity.ok(jobService.test(id));
+//    }
+
     @GetMapping
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER')")
     public ResponseEntity<List<Job>> index() {
