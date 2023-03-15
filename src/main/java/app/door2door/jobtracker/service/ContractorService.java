@@ -22,8 +22,7 @@ public class ContractorService {
                 .phoneNumber(request.getPhoneNumber())
                 .email(request.getEmail())
                 .build();
-        contractorRepository.save(contractor);
-        return contractor;
+        return contractorRepository.save(contractor);
     }
 
     public List<Contractor> index() {
@@ -38,5 +37,13 @@ public class ContractorService {
         jobRepository.deleteAll(jobs);
         contractorRepository.delete(contractor);
         return contractor;
+    }
+
+    public Contractor update(Integer contractorId, ContractorRequest request) {
+        Contractor contractor = contractorRepository.findById(contractorId).orElseThrow();
+        contractor.setName(request.getName());
+        contractor.setPhoneNumber(request.getPhoneNumber());
+        contractor.setEmail(request.getEmail());
+        return contractorRepository.save(contractor);
     }
 }

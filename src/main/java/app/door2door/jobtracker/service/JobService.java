@@ -38,8 +38,7 @@ public class JobService {
                 .createdBy(getUser().name())
                 .createdAt(new Timestamp(System.currentTimeMillis()))
                 .build();
-        jobRepository.save(job);
-        return job;
+        return jobRepository.save(job);
     }
 
     public List<Job> index() { return jobRepository.findAll(); }
@@ -57,8 +56,7 @@ public class JobService {
         job.setShowerStatus(request.getShowerStatus());
         job.setMirrorStatus(request.getMirrorStatus());
         job.setContractor(request.getContractor());
-        jobRepository.save(job);
-        return job;
+        return jobRepository.save(job);
     }
 
     public Job delete(Integer jobId) {

@@ -35,6 +35,14 @@ public class ContractorController {
         return ResponseEntity.ok(service.create(request));
     }
 
+    @PutMapping("/{contractorId}")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public ResponseEntity<Contractor> update(
+            @PathVariable Integer contractorId, @RequestBody ContractorRequest request
+    ) {
+        return ResponseEntity.ok(service.update(contractorId, request));
+    }
+
     @DeleteMapping("/{contractorId}")
     @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<Contractor> delete(@PathVariable Integer contractorId) {
