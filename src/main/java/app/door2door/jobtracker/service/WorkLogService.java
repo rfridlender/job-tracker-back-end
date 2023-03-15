@@ -55,4 +55,8 @@ public class WorkLogService {
         return jobRepository.findById(jobId).orElseThrow();
     }
 
+    public Job delete(Integer jobId, Integer workLogId) {
+        workLogRepository.deleteById(workLogId);
+        return jobRepository.findById(jobId).orElseThrow();
+    }
 }

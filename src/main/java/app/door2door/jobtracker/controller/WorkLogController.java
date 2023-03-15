@@ -29,4 +29,10 @@ public class WorkLogController {
         return ResponseEntity.ok(workLogService.update(jobId, workLogId, request));
     }
 
+    @DeleteMapping("/{workLogId}")
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER')")
+    public ResponseEntity<Job> delete(@PathVariable Integer jobId, @PathVariable Integer workLogId) {
+        return ResponseEntity.ok(workLogService.delete(jobId, workLogId));
+    }
+
 }
