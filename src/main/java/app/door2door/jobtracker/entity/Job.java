@@ -42,6 +42,8 @@ public class Job {
     @JoinColumn(name = "contractor_id", nullable = false)
     private Contractor contractor;
 
+    private String takeoff;
+
     private String jobSiteAccess;
 
     private String createdBy;

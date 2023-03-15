@@ -6,12 +6,20 @@ import app.door2door.jobtracker.dto.UserDto;
 import app.door2door.jobtracker.entity.*;
 import app.door2door.jobtracker.mapper.UserDtoMapper;
 import app.door2door.jobtracker.repository.JobRepository;
+import com.cloudinary.utils.ObjectUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
+import com.cloudinary.Cloudinary;
 
 @Service
 @RequiredArgsConstructor
@@ -19,6 +27,7 @@ public class JobService {
 
     private final JobRepository jobRepository;
     private final UserDtoMapper userDtoMapper;
+    private final Cloudinary cloudinary;
 
 //    public List<Job> test(Integer id) {
 //        return jobRepository.findByContractorId(id);
@@ -68,4 +77,8 @@ public class JobService {
         return job;
     }
 
+    public String addPhoto(Integer jobId, MultipartFile photo) throws IOException {
+        Map uploadResponse = cloudinary.uploader().upload(photo.getBytes(), ObjectUtils.emptyMap());
+        return uploadResponse.get("url").toString();
+    }
 }

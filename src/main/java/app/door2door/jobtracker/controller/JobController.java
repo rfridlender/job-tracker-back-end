@@ -8,6 +8,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -50,6 +54,12 @@ public class JobController {
     @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<Job> delete(@PathVariable Integer jobId) {
         return ResponseEntity.ok(jobService.delete(jobId));
+    }
+
+    @PutMapping("/{jobId}/add-photo")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public ResponseEntity<String> addPhoto(@PathVariable Integer jobId, @RequestParam MultipartFile photo) throws IOException {
+        return ResponseEntity.ok(jobService.addPhoto(jobId, photo));
     }
 
 }
