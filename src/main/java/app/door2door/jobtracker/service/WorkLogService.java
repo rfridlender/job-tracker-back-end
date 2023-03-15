@@ -37,6 +37,7 @@ public class WorkLogService {
                 .workCompleted(request.getWorkCompleted())
                 .completed(request.isCompleted())
                 .incompleteItems(request.getIncompleteItems())
+                .keyNumber(request.getKeyNumber())
                 .build();
         Job job = jobRepository.findById(jobId).orElseThrow();
         job.getWorkLogs().add(workLog);
@@ -53,6 +54,7 @@ public class WorkLogService {
         workLog.setWorkCompleted(request.getWorkCompleted());
         workLog.setCompleted(request.isCompleted());
         workLog.setIncompleteItems(request.getIncompleteItems());
+        workLog.setKeyNumber(request.getKeyNumber());
         workLogRepository.save(workLog);
         return jobRepository.findById(jobId).orElseThrow();
     }

@@ -41,4 +41,6 @@ public class WorkLog {
 
     private String incompleteItems;
 
+    private String keyNumber;
+
 }

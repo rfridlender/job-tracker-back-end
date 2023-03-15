@@ -22,5 +22,6 @@ public class WorkLogRequest {
     private String workCompleted;
     private boolean completed;
     private String incompleteItems;
+    private String keyNumber;
 
 }
