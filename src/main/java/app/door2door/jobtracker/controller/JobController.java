@@ -41,7 +41,7 @@ public class JobController {
     }
 
     @PutMapping("/{jobId}")
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER')")
     public ResponseEntity<Job> update(@PathVariable Integer jobId, @RequestBody JobUpdateRequest request) {
         return ResponseEntity.ok(jobService.update(jobId, request));
     }

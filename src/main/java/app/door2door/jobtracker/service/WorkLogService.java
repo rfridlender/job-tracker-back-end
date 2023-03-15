@@ -33,6 +33,7 @@ public class WorkLogService {
                 .workDate(request.getWorkDate())
                 .startTime(new Time(request.getStartTime()))
                 .endTime(new Time(request.getEndTime()))
+                .hourDifference((request.getEndTime() - request.getStartTime()) / 3600000)
                 .workCompleted(request.getWorkCompleted())
                 .completed(request.isCompleted())
                 .incompleteItems(request.getIncompleteItems())
@@ -48,6 +49,7 @@ public class WorkLogService {
         workLog.setWorkDate(request.getWorkDate());
         workLog.setStartTime(new Time(request.getStartTime()));
         workLog.setEndTime(new Time(request.getEndTime()));
+        workLog.setHourDifference((request.getEndTime() - request.getStartTime()) / 3600000);
         workLog.setWorkCompleted(request.getWorkCompleted());
         workLog.setCompleted(request.isCompleted());
         workLog.setIncompleteItems(request.getIncompleteItems());

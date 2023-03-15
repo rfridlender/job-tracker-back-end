@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import java.sql.Date;
 import java.sql.Time;
 
@@ -33,6 +32,8 @@ public class WorkLog {
     private Time startTime;
 
     private Time endTime;
+
+    private Long hourDifference;
 
     private String workCompleted;
 
