@@ -21,7 +21,9 @@ public class Contractor {
     @GeneratedValue
     private Integer id;
 
-    private String name;
+    private String companyName;
+
+    private String contactName;
 
     private String phoneNumber;
 

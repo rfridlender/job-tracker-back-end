@@ -18,7 +18,8 @@ public class ContractorService {
 
     public Contractor create(ContractorRequest request) {
         Contractor contractor = Contractor.builder()
-                .name(request.getName())
+                .companyName(request.getCompanyName())
+                .contactName(request.getContactName())
                 .phoneNumber(request.getPhoneNumber())
                 .email(request.getEmail())
                 .build();
@@ -41,7 +42,8 @@ public class ContractorService {
 
     public Contractor update(Integer contractorId, ContractorRequest request) {
         Contractor contractor = contractorRepository.findById(contractorId).orElseThrow();
-        contractor.setName(request.getName());
+        contractor.setCompanyName(request.getCompanyName());
+        contractor.setContactName(request.getContactName());
         contractor.setPhoneNumber(request.getPhoneNumber());
         contractor.setEmail(request.getEmail());
         return contractorRepository.save(contractor);

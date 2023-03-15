@@ -11,7 +11,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ContractorRequest {
 
-    private String name;
+    private String companyName;
+    private String contactName;
     private String phoneNumber;
     private String email;
 
