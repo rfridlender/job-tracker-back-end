@@ -61,6 +61,7 @@ public class JobService {
 
     public Job delete(Integer jobId) {
         Job job = jobRepository.findById(jobId).orElseThrow();
+        job.getWorkLogs().clear();
         jobRepository.delete(job);
         return job;
     }
