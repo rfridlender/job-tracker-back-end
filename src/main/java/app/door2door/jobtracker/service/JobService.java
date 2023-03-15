@@ -11,8 +11,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.io.File;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -78,7 +76,10 @@ public class JobService {
     }
 
     public String addPhoto(Integer jobId, MultipartFile photo) throws IOException {
+        Job job = jobRepository.findById(jobId).orElseThrow();
         Map uploadResponse = cloudinary.uploader().upload(photo.getBytes(), ObjectUtils.emptyMap());
+        job.setTakeoff(uploadResponse.get("url").toString());
+        jobRepository.save(job);
         return uploadResponse.get("url").toString();
     }
 }
