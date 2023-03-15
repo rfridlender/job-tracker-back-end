@@ -35,6 +35,7 @@ public class JobService {
                 .status(Status.UPCOMING)
                 .workLogs(new ArrayList<WorkLog>())
                 .contractor(request.getContractor())
+                .jobSiteAccess(request.getJobSiteAccess())
                 .createdBy(getUser().name())
                 .createdAt(new Timestamp(System.currentTimeMillis()))
                 .build();
@@ -56,6 +57,7 @@ public class JobService {
         job.setShowerStatus(request.getShowerStatus());
         job.setMirrorStatus(request.getMirrorStatus());
         job.setContractor(request.getContractor());
+        job.setJobSiteAccess(request.getJobSiteAccess());
         return jobRepository.save(job);
     }
 

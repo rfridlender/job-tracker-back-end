@@ -14,6 +14,7 @@ public class JobRequest {
 
     private String address;
     private Contractor contractor;
+    private String jobSiteAccess;
 
 }
 

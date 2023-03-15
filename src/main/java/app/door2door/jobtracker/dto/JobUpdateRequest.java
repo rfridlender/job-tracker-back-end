@@ -20,6 +20,7 @@ public class JobUpdateRequest {
     private String showerStatus;
     private String mirrorStatus;
     private Contractor contractor;
+    private String jobSiteAccess;
 
 
 }
