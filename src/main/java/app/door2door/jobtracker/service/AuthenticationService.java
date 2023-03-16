@@ -23,7 +23,7 @@ public class AuthenticationService {
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
 
-    public AuthenticationResponse register(RegistrationRequest request) {
+    public AuthenticationResponse signup(RegistrationRequest request) {
         if (repository.existsByEmail(request.getEmail())) {
             throw new EmailTakenException("Email already taken");
         }
@@ -40,7 +40,7 @@ public class AuthenticationService {
                 .build();
     }
 
-    public AuthenticationResponse authenticate(AuthenticationRequest request) {
+    public AuthenticationResponse login(AuthenticationRequest request) {
         User user = repository.findByEmail(request.getEmail())
                 .orElseThrow(() -> new EmailNotFoundException("Email not found"));
         authenticationManager.authenticate(
