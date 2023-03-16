@@ -27,7 +27,6 @@ public class SecurityConfig {
                 .csrf().disable()
                 .authorizeHttpRequests()
                 .requestMatchers("/api/auth/**").permitAll()
-//              .requestMatchers("/api/jobs").hasAuthority("ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
@@ -35,7 +34,7 @@ public class SecurityConfig {
                 .authenticationProvider(authenticationProvider)
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
 //              .logout()
-//              .logoutUrl("/api/v1/auth/logout")
+//              .logoutUrl("/api/auth/logout")
 //              .addLogoutHandler(logoutHandler)
 //              .logoutSuccessHandler((request, response, authentication) -> SecurityContextHolder.clearContext())
                 .build();

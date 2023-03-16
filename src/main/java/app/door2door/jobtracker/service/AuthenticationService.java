@@ -28,8 +28,7 @@ public class AuthenticationService {
             throw new EmailTakenException("Email already taken");
         }
         User user = User.builder()
-                .firstName(request.getFirstName())
-                .lastName(request.getLastName())
+                .name(request.getName())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role(Role.ADMIN)

@@ -11,7 +11,7 @@
 	<groupId>app.door2door</groupId>
 	<artifactId>jobtracker</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>jobtracker</name>
+	<name>job-tracker-back-end</name>
 	<description>Job Tracker for Door2Door</description>
 	<properties>
 		<java.version>17</java.version>
