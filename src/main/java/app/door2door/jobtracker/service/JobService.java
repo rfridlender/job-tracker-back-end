@@ -4,6 +4,7 @@ import app.door2door.jobtracker.dto.JobRequest;
 import app.door2door.jobtracker.dto.JobUpdateRequest;
 import app.door2door.jobtracker.dto.UserDto;
 import app.door2door.jobtracker.entity.*;
+import app.door2door.jobtracker.exceptions.EntityNotFoundException;
 import app.door2door.jobtracker.mapper.UserDtoMapper;
 import app.door2door.jobtracker.repository.JobRepository;
 import com.cloudinary.utils.ObjectUtils;
@@ -27,10 +28,6 @@ public class JobService {
     private final UserDtoMapper userDtoMapper;
     private final Cloudinary cloudinary;
 
-//    public List<Job> test(Integer id) {
-//        return jobRepository.findByContractorId(id);
-//    }
-
     private UserDto getUser() {
         User principal = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return userDtoMapper.apply(principal);
@@ -52,33 +49,33 @@ public class JobService {
     public List<Job> index() { return jobRepository.findAll(); }
 
     public Job show(Integer jobId) {
-        return jobRepository.findById(jobId).orElseThrow();
+        return jobRepository.findById(jobId).orElseThrow(() -> new EntityNotFoundException("Job not found"));
     }
 
     public Job update(Integer jobId, JobUpdateRequest request) {
-        Job job = jobRepository.findById(jobId).orElseThrow();
-        job.setAddress(request.getAddress());
-        job.setStatus(request.getStatus());
-        job.setLockStatus(request.getLockStatus());
-        job.setShelvingStatus(request.getShelvingStatus());
-        job.setShowerStatus(request.getShowerStatus());
-        job.setMirrorStatus(request.getMirrorStatus());
-        job.setContractor(request.getContractor());
-        job.setJobSiteAccess(request.getJobSiteAccess());
+        Job job = jobRepository.findById(jobId).orElseThrow(() -> new EntityNotFoundException("Job not found"));
+            job.setAddress(request.getAddress());
+            job.setStatus(request.getStatus());
+            job.setLockStatus(request.getLockStatus());
+            job.setShelvingStatus(request.getShelvingStatus());
+            job.setShowerStatus(request.getShowerStatus());
+            job.setMirrorStatus(request.getMirrorStatus());
+            job.setContractor(request.getContractor());
+            job.setJobSiteAccess(request.getJobSiteAccess());
         return jobRepository.save(job);
     }
 
     public Job delete(Integer jobId) {
-        Job job = jobRepository.findById(jobId).orElseThrow();
-        job.getWorkLogs().clear();
+        Job job = jobRepository.findById(jobId).orElseThrow(() -> new EntityNotFoundException("Job not found"));;
+            job.getWorkLogs().clear();
         jobRepository.delete(job);
         return job;
     }
 
     public String addPhoto(Integer jobId, MultipartFile photo) throws IOException {
-        Job job = jobRepository.findById(jobId).orElseThrow();
+        Job job = jobRepository.findById(jobId).orElseThrow(() -> new EntityNotFoundException("Job not found"));
         Map uploadResponse = cloudinary.uploader().upload(photo.getBytes(), ObjectUtils.emptyMap());
-        job.setTakeoff(uploadResponse.get("url").toString());
+            job.setTakeoff(uploadResponse.get("url").toString());
         jobRepository.save(job);
         return uploadResponse.get("url").toString();
     }

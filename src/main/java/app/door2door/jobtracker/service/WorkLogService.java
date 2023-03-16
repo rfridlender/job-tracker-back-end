@@ -3,6 +3,7 @@ package app.door2door.jobtracker.service;
 import app.door2door.jobtracker.dto.UserDto;
 import app.door2door.jobtracker.dto.WorkLogRequest;
 import app.door2door.jobtracker.entity.*;
+import app.door2door.jobtracker.exceptions.EntityNotFoundException;
 import app.door2door.jobtracker.mapper.UserDtoMapper;
 import app.door2door.jobtracker.repository.JobRepository;
 import app.door2door.jobtracker.repository.WorkLogRepository;
@@ -45,22 +46,23 @@ public class WorkLogService {
     }
 
     public Job update(Integer jobId, Integer workLogId, WorkLogRequest request) {
-        WorkLog workLog = workLogRepository.findById(workLogId).orElseThrow();
-        workLog.setCategory(request.getCategory());
-        workLog.setWorkDate(request.getWorkDate());
-        workLog.setStartTime(new Time(request.getStartTime()));
-        workLog.setEndTime(new Time(request.getEndTime()));
-        workLog.setHourDifference((request.getEndTime() - request.getStartTime()) / 3600000);
-        workLog.setWorkCompleted(request.getWorkCompleted());
-        workLog.setCompleted(request.isCompleted());
-        workLog.setIncompleteItems(request.getIncompleteItems());
-        workLog.setKeyNumber(request.getKeyNumber());
+        WorkLog workLog = workLogRepository.findById(workLogId)
+                .orElseThrow(() -> new EntityNotFoundException("Log not found"));
+            workLog.setCategory(request.getCategory());
+            workLog.setWorkDate(request.getWorkDate());
+            workLog.setStartTime(new Time(request.getStartTime()));
+            workLog.setEndTime(new Time(request.getEndTime()));
+            workLog.setHourDifference((request.getEndTime() - request.getStartTime()) / 3600000);
+            workLog.setWorkCompleted(request.getWorkCompleted());
+            workLog.setCompleted(request.isCompleted());
+            workLog.setIncompleteItems(request.getIncompleteItems());
+            workLog.setKeyNumber(request.getKeyNumber());
         workLogRepository.save(workLog);
         return jobRepository.findById(jobId).orElseThrow();
     }
 
     public Job delete(Integer jobId, Integer workLogId) {
         workLogRepository.deleteById(workLogId);
-        return jobRepository.findById(jobId).orElseThrow();
+        return jobRepository.findById(jobId).orElseThrow(() -> new EntityNotFoundException("Job not found"));
     }
 }

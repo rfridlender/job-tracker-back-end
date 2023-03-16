@@ -9,10 +9,3 @@ public record UserDto (
 ){
 
 }
-
-//    private Integer id;
-//    private String firstName;
-//    private String lastName;
-//    private String email;
-//    private String password;
-//    private Role role;

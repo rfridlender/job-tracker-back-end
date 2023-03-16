@@ -5,6 +5,8 @@ import app.door2door.jobtracker.dto.AuthenticationResponse;
 import app.door2door.jobtracker.dto.RegistrationRequest;
 import app.door2door.jobtracker.entity.Role;
 import app.door2door.jobtracker.entity.User;
+import app.door2door.jobtracker.exceptions.EmailNotFoundException;
+import app.door2door.jobtracker.exceptions.EmailTakenException;
 import app.door2door.jobtracker.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -22,6 +24,9 @@ public class AuthenticationService {
     private final AuthenticationManager authenticationManager;
 
     public AuthenticationResponse register(RegistrationRequest request) {
+        if (repository.existsByEmail(request.getEmail())) {
+            throw new EmailTakenException("Email already taken");
+        }
         User user = User.builder()
                 .firstName(request.getFirstName())
                 .lastName(request.getLastName())
@@ -37,14 +42,14 @@ public class AuthenticationService {
     }
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
+        User user = repository.findByEmail(request.getEmail())
+                .orElseThrow(() -> new EmailNotFoundException("Email not found"));
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.getEmail(),
                         request.getPassword()
                 )
         );
-        User user = repository.findByEmail(request.getEmail())
-                .orElseThrow();
         String token = jwtService.generateToken(user);
         return AuthenticationResponse.builder()
                 .token(token)
