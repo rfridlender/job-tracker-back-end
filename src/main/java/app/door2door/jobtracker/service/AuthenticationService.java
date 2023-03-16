@@ -1,8 +1,8 @@
 package app.door2door.jobtracker.service;
 
-import app.door2door.jobtracker.dto.AuthenticationRequest;
+import app.door2door.jobtracker.dto.LoginRequest;
 import app.door2door.jobtracker.dto.AuthenticationResponse;
-import app.door2door.jobtracker.dto.RegistrationRequest;
+import app.door2door.jobtracker.dto.SignupRequest;
 import app.door2door.jobtracker.entity.Role;
 import app.door2door.jobtracker.entity.User;
 import app.door2door.jobtracker.exceptions.EmailNotFoundException;
@@ -23,7 +23,7 @@ public class AuthenticationService {
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
 
-    public AuthenticationResponse signup(RegistrationRequest request) {
+    public AuthenticationResponse signup(SignupRequest request) {
         if (repository.existsByEmail(request.getEmail())) {
             throw new EmailTakenException("Email already taken");
         }
@@ -40,7 +40,7 @@ public class AuthenticationService {
                 .build();
     }
 
-    public AuthenticationResponse login(AuthenticationRequest request) {
+    public AuthenticationResponse login(LoginRequest request) {
         User user = repository.findByEmail(request.getEmail())
                 .orElseThrow(() -> new EmailNotFoundException("Email not found"));
         authenticationManager.authenticate(
