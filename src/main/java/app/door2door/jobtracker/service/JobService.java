@@ -1,7 +1,6 @@
 package app.door2door.jobtracker.service;
 
 import app.door2door.jobtracker.dto.JobRequest;
-import app.door2door.jobtracker.dto.JobUpdateRequest;
 import app.door2door.jobtracker.dto.UserDto;
 import app.door2door.jobtracker.entity.*;
 import app.door2door.jobtracker.exceptions.EntityNotFoundException;
@@ -35,7 +34,11 @@ public class JobService {
     public Job create(JobRequest request) {
         Job job = Job.builder()
                 .address(request.getAddress())
-                .status(Status.UPCOMING)
+                .status(request.getStatus())
+                .lockStatus(request.getLockStatus())
+                .shelvingStatus(request.getShelvingStatus())
+                .showerStatus(request.getShowerStatus())
+                .mirrorStatus(request.getMirrorStatus())
                 .workLogs(new ArrayList<WorkLog>())
                 .contractor(request.getContractor())
                 .jobSiteAccess(request.getJobSiteAccess())
@@ -51,7 +54,7 @@ public class JobService {
         return jobRepository.findById(jobId).orElseThrow(() -> new EntityNotFoundException("Job not found"));
     }
 
-    public Job update(Integer jobId, JobUpdateRequest request) {
+    public Job update(Integer jobId, JobRequest request) {
         Job job = jobRepository.findById(jobId).orElseThrow(() -> new EntityNotFoundException("Job not found"));
             job.setAddress(request.getAddress());
             job.setStatus(request.getStatus());

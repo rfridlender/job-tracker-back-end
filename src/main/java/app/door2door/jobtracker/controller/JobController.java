@@ -1,7 +1,6 @@
 package app.door2door.jobtracker.controller;
 
 import app.door2door.jobtracker.dto.JobRequest;
-import app.door2door.jobtracker.dto.JobUpdateRequest;
 import app.door2door.jobtracker.entity.*;
 import app.door2door.jobtracker.service.JobService;
 import lombok.RequiredArgsConstructor;
@@ -39,7 +38,7 @@ public class JobController {
 
     @PutMapping("/{jobId}")
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER')")
-    public ResponseEntity<Job> update(@PathVariable Integer jobId, @RequestBody JobUpdateRequest request) {
+    public ResponseEntity<Job> update(@PathVariable Integer jobId, @RequestBody JobRequest request) {
         return ResponseEntity.ok(jobService.update(jobId, request));
     }
 
