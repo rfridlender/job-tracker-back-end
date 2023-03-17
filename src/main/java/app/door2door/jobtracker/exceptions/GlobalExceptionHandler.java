@@ -14,7 +14,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorResponse> handleEmailTakenException(EmailTakenException exception) {
         ErrorResponse errorResponse = ErrorResponse.builder()
                 .statusCode(HttpStatus.CONFLICT.value())
-                .message(exception.getMessage())
+                .err(exception.getMessage())
                 .timestamp(new Date())
                 .build();
         return new ResponseEntity<ErrorResponse>(errorResponse, HttpStatus.CONFLICT);
@@ -24,7 +24,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorResponse> handleEmailNotFoundException(EmailNotFoundException exception) {
         ErrorResponse errorResponse = ErrorResponse.builder()
                 .statusCode(HttpStatus.NOT_FOUND.value())
-                .message(exception.getMessage())
+                .err(exception.getMessage())
                 .timestamp(new Date())
                 .build();
         return new ResponseEntity<ErrorResponse>(errorResponse, HttpStatus.NOT_FOUND);
@@ -34,7 +34,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorResponse> handleEntityNotFoundException(EntityNotFoundException exception) {
         ErrorResponse errorResponse = ErrorResponse.builder()
                 .statusCode(HttpStatus.NOT_FOUND.value())
-                .message(exception.getMessage())
+                .err(exception.getMessage())
                 .timestamp(new Date())
                 .build();
         return new ResponseEntity<ErrorResponse>(errorResponse, HttpStatus.NOT_FOUND);

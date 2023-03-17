@@ -1,5 +1,8 @@
 package app.door2door.jobtracker.service;
 
+import app.door2door.jobtracker.dto.UserDto;
+import app.door2door.jobtracker.entity.User;
+import app.door2door.jobtracker.mapper.UserDtoMapper;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -17,6 +20,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class JwtService {
 
+    private UserDtoMapper userDtoMapper = new UserDtoMapper();
+
     @Value("${spring.jwt.secret}")
     private String JWT_SECRET;
 
@@ -31,18 +36,36 @@ public class JwtService {
         return claimsResolver.apply(claims);
     }
 
-    public String generateToken(UserDetails userDetails) {
-        return generateToken(new HashMap<>(), userDetails);
+//    public String generateToken(UserDetails userDetails) {
+//        return generateToken(new HashMap<>(), userDetails);
+//    }
+//
+//    public String generateToken(
+//            Map<String, Object> extraClaims,
+//            UserDetails userDetails
+//    ) {
+//        return Jwts
+//                .builder()
+//                .setClaims(extraClaims)
+//                .setSubject(userDetails.getUsername())
+//                .setIssuedAt(new Date(System.currentTimeMillis()))
+//                .setExpiration(new Date(System.currentTimeMillis() + JWT_EXPIRATION_TIME))
+//                .signWith(getSignInKey(), SignatureAlgorithm.HS256)
+//                .compact();
+//    }
+
+    public String generateToken(User user) {
+        UserDto userDto = userDtoMapper.apply(user);
+        Map<String, Object> extraClaims = new HashMap<String, Object>();
+            extraClaims.put("user", userDto);
+        return generateToken(extraClaims, userDto);
     }
 
-    public String generateToken(
-            Map<String, Object> extraClaims,
-            UserDetails userDetails
-    ) {
+    public String generateToken(Map<String, Object> extraClaims, UserDto userDto) {
         return Jwts
                 .builder()
                 .setClaims(extraClaims)
-                .setSubject(userDetails.getUsername())
+                .setSubject(userDto.email())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + JWT_EXPIRATION_TIME))
                 .signWith(getSignInKey(), SignatureAlgorithm.HS256)
