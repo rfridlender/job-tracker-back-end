@@ -6,5 +6,4 @@ public enum Category {
     SHOWER_ENCLOSURES,
     MIRRORS,
     OTHER
-
 }
