@@ -39,6 +39,7 @@ public class WorkLogService {
                 .completed(request.isCompleted())
                 .incompleteItems(request.getIncompleteItems())
                 .keyNumber(request.getKeyNumber())
+                .submittedAt(new Timestamp(System.currentTimeMillis()))
                 .build();
         Job job = jobRepository.findById(jobId).orElseThrow();
         job.getWorkLogs().add(workLog);

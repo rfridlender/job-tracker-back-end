@@ -7,7 +7,10 @@ import app.door2door.jobtracker.exceptions.EntityNotFoundException;
 import app.door2door.jobtracker.repository.ContractorRepository;
 import app.door2door.jobtracker.repository.JobRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+
+import java.sql.Timestamp;
 import java.util.List;
 
 @Service
@@ -18,7 +21,7 @@ public class ContractorService {
     private final JobRepository jobRepository;
 
     public List<Contractor> index() {
-        return contractorRepository.findAll();
+        return contractorRepository.findAll(Sort.by("createdAt").descending());
     }
 
     public Contractor show(Integer contractorId) {
@@ -32,6 +35,7 @@ public class ContractorService {
                 .contactName(request.getContactName())
                 .phoneNumber(request.getPhoneNumber())
                 .email(request.getEmail())
+                .createdAt(new Timestamp(System.currentTimeMillis()))
                 .build();
         return contractorRepository.save(contractor);
     }

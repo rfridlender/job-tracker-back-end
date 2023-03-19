@@ -1,13 +1,16 @@
 package app.door2door.jobtracker.service;
 
 import app.door2door.jobtracker.dto.JobRequest;
+import app.door2door.jobtracker.dto.PhotoResponse;
 import app.door2door.jobtracker.dto.UserDto;
 import app.door2door.jobtracker.entity.*;
 import app.door2door.jobtracker.exceptions.EntityNotFoundException;
 import app.door2door.jobtracker.mapper.UserDtoMapper;
+import app.door2door.jobtracker.repository.ContractorRepository;
 import app.door2door.jobtracker.repository.JobRepository;
 import com.cloudinary.utils.ObjectUtils;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -23,12 +26,19 @@ import com.cloudinary.Cloudinary;
 public class JobService {
 
     private final JobRepository jobRepository;
+    private final ContractorRepository contractorRepository;
     private final UserDtoMapper userDtoMapper;
     private final Cloudinary cloudinary;
 
     private UserDto getUser() {
         User principal = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return userDtoMapper.apply(principal);
+    }
+
+    public List<Job> index() { return jobRepository.findAll(Sort.by("createdAt").descending()); }
+
+    public Job show(Integer jobId) {
+        return jobRepository.findById(jobId).orElseThrow(() -> new EntityNotFoundException("Job not found"));
     }
 
     public Job create(JobRequest request) {
@@ -46,12 +56,6 @@ public class JobService {
                 .createdAt(new Timestamp(System.currentTimeMillis()))
                 .build();
         return jobRepository.save(job);
-    }
-
-    public List<Job> index() { return jobRepository.findAll(); }
-
-    public Job show(Integer jobId) {
-        return jobRepository.findById(jobId).orElseThrow(() -> new EntityNotFoundException("Job not found"));
     }
 
     public Job update(Integer jobId, JobRequest request) {
@@ -74,11 +78,13 @@ public class JobService {
         return job;
     }
 
-    public String addPhoto(Integer jobId, MultipartFile photo) throws IOException {
+    public PhotoResponse addPhoto(Integer jobId, MultipartFile photo) throws IOException {
         Job job = jobRepository.findById(jobId).orElseThrow(() -> new EntityNotFoundException("Job not found"));
         Map uploadResponse = cloudinary.uploader().upload(photo.getBytes(), ObjectUtils.emptyMap());
             job.setTakeoff(uploadResponse.get("url").toString());
         jobRepository.save(job);
-        return uploadResponse.get("url").toString();
+        return PhotoResponse.builder()
+                .photo(uploadResponse.get("url").toString())
+                .build();
     }
 }

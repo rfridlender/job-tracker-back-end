@@ -1,6 +1,7 @@
 package app.door2door.jobtracker.controller;
 
 import app.door2door.jobtracker.dto.JobRequest;
+import app.door2door.jobtracker.dto.PhotoResponse;
 import app.door2door.jobtracker.entity.*;
 import app.door2door.jobtracker.service.JobService;
 import lombok.RequiredArgsConstructor;
@@ -50,7 +51,7 @@ public class JobController {
 
     @PutMapping("/{jobId}/add-photo")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity<String> addPhoto(@PathVariable Integer jobId, @RequestParam MultipartFile photo) throws IOException {
+    public ResponseEntity<PhotoResponse> addPhoto(@PathVariable Integer jobId, @RequestParam MultipartFile photo) throws IOException {
         return ResponseEntity.ok(jobService.addPhoto(jobId, photo));
     }
 

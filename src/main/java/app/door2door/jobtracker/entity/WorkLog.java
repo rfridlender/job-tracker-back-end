@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.sql.Date;
 import java.sql.Time;
+import java.sql.Timestamp;
 
 @Data
 @Builder
@@ -19,8 +20,6 @@ public class WorkLog {
     @Id
     @GeneratedValue
     private Integer id;
-
-    private java.sql.Timestamp submittedAt;
 
     private String employeeName;
 
@@ -42,5 +41,7 @@ public class WorkLog {
     private String incompleteItems;
 
     private String keyNumber;
+
+    private Timestamp submittedAt;
 
 }
