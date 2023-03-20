@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import java.sql.Date;
 
 @Data
 @Builder
@@ -14,9 +13,9 @@ import java.sql.Date;
 public class WorkLogRequest {
 
     private Category category;
-    private Date workDate;
-    private Long startTime;
-    private Long endTime;
+    private String workDate;
+    private String startTime;
+    private String endTime;
     private String workCompleted;
     private boolean completed;
     private String incompleteItems;

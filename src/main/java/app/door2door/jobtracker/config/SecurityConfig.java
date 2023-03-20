@@ -1,6 +1,7 @@
 package app.door2door.jobtracker.config;
 
 import app.door2door.jobtracker.security.JwtAuthenticationFilter;
+import io.github.cdimascio.dotenv.Dotenv;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,6 +23,7 @@ public class SecurityConfig {
 
     private final JwtAuthenticationFilter jwtAuthFilter;
     private final AuthenticationProvider authenticationProvider;
+    private final Dotenv dotenv = Dotenv.load();
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -52,7 +54,7 @@ public class SecurityConfig {
                 registry
                         .addMapping("/api/**")
                         .allowedMethods("*")
-                        .allowedOrigins("http://localhost:3000")
+                        .allowedOrigins(dotenv.get("FRONT_END_URL"))
                         .allowedHeaders("*");
             }
         };

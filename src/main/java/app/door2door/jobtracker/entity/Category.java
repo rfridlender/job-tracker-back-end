@@ -1,9 +1,8 @@
 package app.door2door.jobtracker.entity;
 
 public enum Category {
-    LOCKS_AND_HARDWARE,
+    LOCKS,
     SHELVING,
-    SHOWER_ENCLOSURES,
-    MIRRORS,
-    OTHER
+    SHOWERS,
+    MIRRORS
 }

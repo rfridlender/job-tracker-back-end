@@ -5,5 +5,6 @@ public enum Status {
     INCOMPLETE,
     COMPLETE,
     INVOICED,
-    PAID
+    PAID,
+    RETIRED
 }

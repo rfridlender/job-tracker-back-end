@@ -35,6 +35,7 @@ public class Job {
     private String mirrorStatus;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = false)
+    @OrderBy("workDate DESC")
     @JoinColumn(name = "job_id", nullable = true)
     private List<WorkLog> workLogs = new ArrayList<WorkLog>();
 

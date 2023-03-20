@@ -12,7 +12,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
 import com.cloudinary.*;
 import io.github.cdimascio.dotenv.Dotenv;
 
@@ -21,10 +20,10 @@ import io.github.cdimascio.dotenv.Dotenv;
 public class ApplicationConfig {
 
     private final UserRepository repository;
+    private final Dotenv dotenv = Dotenv.load();
 
     @Bean
     public Cloudinary cloudinary() {
-        Dotenv dotenv = Dotenv.load();
         Cloudinary cloudinary = new Cloudinary(dotenv.get("CLOUDINARY_URL"));
         cloudinary.config.secure = true;
         return cloudinary;
