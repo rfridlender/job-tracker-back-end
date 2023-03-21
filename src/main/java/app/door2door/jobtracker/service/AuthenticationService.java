@@ -2,7 +2,7 @@ package app.door2door.jobtracker.service;
 
 import app.door2door.jobtracker.dto.LoginRequest;
 import app.door2door.jobtracker.dto.AuthenticationResponse;
-import app.door2door.jobtracker.dto.SignupRequest;
+import app.door2door.jobtracker.dto.UserCreateRequest;
 import app.door2door.jobtracker.entity.Role;
 import app.door2door.jobtracker.entity.User;
 import app.door2door.jobtracker.exceptions.EmailNotFoundException;
@@ -18,30 +18,30 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class AuthenticationService {
 
-    private final UserRepository repository;
-    private final PasswordEncoder passwordEncoder;
+    private final UserRepository userRepository;
+//    private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
 
-    public AuthenticationResponse signup(SignupRequest request) {
-        if (repository.existsByEmail(request.getEmail())) {
-            throw new EmailTakenException("Email already taken");
-        }
-        User user = User.builder()
-                .name(request.getName())
-                .email(request.getEmail())
-                .password(passwordEncoder.encode(request.getPassword()))
-                .role(Role.ADMIN)
-                .build();
-        repository.save(user);
-        String token = jwtService.generateToken(user);
-        return AuthenticationResponse.builder()
-                .token(token)
-                .build();
-    }
+//    public AuthenticationResponse signup(UserCreateRequest request) {
+//        if (userRepository.existsByEmail(request.getEmail())) {
+//            throw new EmailTakenException("Email already taken");
+//        }
+//        User user = User.builder()
+//                .name(request.getName())
+//                .email(request.getEmail())
+//                .password(passwordEncoder.encode(request.getPassword()))
+//                .role(Role.ADMIN)
+//                .build();
+//        userRepository.save(user);
+//        String token = jwtService.generateToken(user);
+//        return AuthenticationResponse.builder()
+//                .token(token)
+//                .build();
+//    }
 
     public AuthenticationResponse login(LoginRequest request) {
-        User user = repository.findByEmail(request.getEmail())
+        User user = userRepository.findByEmail(request.getEmail())
                 .orElseThrow(() -> new EmailNotFoundException("Email not found"));
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(

@@ -1,5 +1,6 @@
 package app.door2door.jobtracker.dto;
 
+import app.door2door.jobtracker.entity.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,10 +10,10 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class SignupRequest {
+public class UserUpdateRequest {
 
     private String name;
     private String email;
-    private String password;
+    private Role role;
 
 }
