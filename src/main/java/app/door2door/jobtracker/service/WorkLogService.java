@@ -10,6 +10,9 @@ import app.door2door.jobtracker.repository.WorkLogRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.sql.Date;
 import java.sql.Time;
 import static java.lang.Integer.parseInt;
@@ -43,6 +46,11 @@ public class WorkLogService {
                 parseInt(request.getEndTime().substring(3, 5)),
                 00
         );
+        Double millisecondDifference = Double.longBitsToDouble(endTime.getTime() - startTime.getTime());
+        Double millisecondHour = Double.longBitsToDouble(3600000);
+        BigDecimal hourDifferenceDecimal =
+                new BigDecimal(millisecondDifference / millisecondHour)
+                    .setScale(2, RoundingMode.HALF_UP);
         Job job = jobRepository.findById(jobId).orElseThrow(() -> new EntityNotFoundException("Job not found"));
         WorkLog workLog = WorkLog.builder()
                 .employeeName(getUser().name())
@@ -50,7 +58,7 @@ public class WorkLogService {
                 .workDate(workDate)
                 .startTime(startTime)
                 .endTime(endTime)
-                .hourDifference((endTime.getTime() - startTime.getTime()) / 3600000)
+                .hourDifference(hourDifferenceDecimal)
                 .workCompleted(request.getWorkCompleted())
                 .completed(request.isCompleted())
                 .incompleteItems(request.getIncompleteItems())
@@ -77,6 +85,11 @@ public class WorkLogService {
                 parseInt(request.getEndTime().substring(3, 5)),
                 00
         );
+        Double millisecondDifference = Double.longBitsToDouble(endTime.getTime() - startTime.getTime());
+        Double millisecondHour = Double.longBitsToDouble(3600000);
+        BigDecimal hourDifferenceDecimal =
+                new BigDecimal(millisecondDifference / millisecondHour)
+                        .setScale(2, RoundingMode.HALF_UP);
         Job job = jobRepository.findById(jobId).orElseThrow(() -> new EntityNotFoundException("Job not found"));
         WorkLog workLog = workLogRepository.findById(workLogId)
                 .orElseThrow(() -> new EntityNotFoundException("Log not found"));
@@ -84,7 +97,7 @@ public class WorkLogService {
             workLog.setWorkDate(workDate);
             workLog.setStartTime(startTime);
             workLog.setEndTime(endTime);
-            workLog.setHourDifference((endTime.getTime() - startTime.getTime()) / 3600000);
+            workLog.setHourDifference(hourDifferenceDecimal);
             workLog.setWorkCompleted(request.getWorkCompleted());
             workLog.setCompleted(request.isCompleted());
             workLog.setIncompleteItems(request.getIncompleteItems());

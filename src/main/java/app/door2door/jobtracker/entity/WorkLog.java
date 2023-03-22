@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.math.BigDecimal;
 import java.sql.Date;
 import java.sql.Time;
 
@@ -31,7 +33,7 @@ public class WorkLog {
 
     private Time endTime;
 
-    private Long hourDifference;
+    private BigDecimal hourDifference;
 
     private String workCompleted;
 
