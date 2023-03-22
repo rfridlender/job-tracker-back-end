@@ -43,7 +43,9 @@ public class Job {
     @JoinColumn(name = "contractor_id", nullable = false)
     private Contractor contractor;
 
-    private String takeoff;
+    private String takeoffOne;
+
+    private String takeoffTwo;
 
     private String jobSiteAccess;
 

@@ -79,10 +79,16 @@ public class JobService {
         return job;
     }
 
-    public PhotoResponse addPhoto(Integer jobId, MultipartFile photo) throws IOException {
+    public PhotoResponse addPhoto(Integer jobId, Integer takeoffId, MultipartFile photo) throws IOException {
         Job job = jobRepository.findById(jobId).orElseThrow(() -> new EntityNotFoundException("Job not found"));
         Map uploadResponse = cloudinary.uploader().upload(photo.getBytes(), ObjectUtils.emptyMap());
-            job.setTakeoff(uploadResponse.get("url").toString());
+        if (takeoffId == 1) {
+            job.setTakeoffOne(uploadResponse.get("url").toString());
+        } else if (takeoffId == 2){
+            job.setTakeoffTwo(uploadResponse.get("url").toString());
+        } else {
+            throw new IOException();
+        }
         jobRepository.save(job);
         return PhotoResponse.builder()
                 .photo(uploadResponse.get("url").toString())

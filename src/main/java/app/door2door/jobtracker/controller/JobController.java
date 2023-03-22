@@ -49,10 +49,12 @@ public class JobController {
         return ResponseEntity.ok(jobService.delete(jobId));
     }
 
-    @PutMapping("/{jobId}/add-photo")
+    @PutMapping("/{jobId}/add-photo/{takeoffId}")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity<PhotoResponse> addPhoto(@PathVariable Integer jobId, @RequestParam MultipartFile photo) throws IOException {
-        return ResponseEntity.ok(jobService.addPhoto(jobId, photo));
+    public ResponseEntity<PhotoResponse> addPhoto(
+            @PathVariable Integer jobId, @PathVariable Integer takeoffId, @RequestParam MultipartFile photo
+    ) throws IOException {
+        return ResponseEntity.ok(jobService.addPhoto(jobId, takeoffId, photo));
     }
 
 }
