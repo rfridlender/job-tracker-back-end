@@ -9,6 +9,7 @@ import app.door2door.jobtracker.exceptions.EntityNotFoundException;
 import app.door2door.jobtracker.mapper.UserDtoMapper;
 import app.door2door.jobtracker.repository.UserRepository;
 import app.door2door.jobtracker.exceptions.EmailTakenException;
+import io.github.cdimascio.dotenv.Dotenv;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -23,6 +24,7 @@ public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final UserDtoMapper userDtoMapper;
+    private final Dotenv dotenv = Dotenv.load();
 
     private UserDto getUser() {
         User principal = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -41,7 +43,7 @@ public class UserService {
         User user = User.builder()
                 .name(request.getName())
                 .email(request.getEmail())
-                .password(passwordEncoder.encode(request.getPassword()))
+                .password(passwordEncoder.encode(dotenv.get("DEFAULT_PASSWORD")))
                 .role(request.getRole())
                 .build();
         userRepository.save(user);

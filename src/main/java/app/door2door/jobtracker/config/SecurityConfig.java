@@ -32,17 +32,13 @@ public class SecurityConfig {
                 .and()
                 .csrf().disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/api/auth/**").permitAll()
+                .requestMatchers("/api/auth/login").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authenticationProvider(authenticationProvider)
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
-//              .logout()
-//              .logoutUrl("/api/auth/logout")
-//              .addLogoutHandler(logoutHandler)
-//              .logoutSuccessHandler((request, response, authentication) -> SecurityContextHolder.clearContext())
                 .build();
     }
 

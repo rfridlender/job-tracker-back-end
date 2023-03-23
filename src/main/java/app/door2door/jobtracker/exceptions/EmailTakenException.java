@@ -8,5 +8,4 @@ public class EmailTakenException extends RuntimeException {
         super(message);
     }
 
-
 }

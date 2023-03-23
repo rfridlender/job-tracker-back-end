@@ -8,5 +8,4 @@ public class EmailNotFoundException extends RuntimeException {
         super(message);
     }
 
-
 }

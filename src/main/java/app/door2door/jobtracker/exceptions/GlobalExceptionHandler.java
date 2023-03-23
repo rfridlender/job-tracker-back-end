@@ -40,4 +40,14 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<ErrorResponse>(errorResponse, HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler(IncorrectPasswordException.class)
+    public ResponseEntity<ErrorResponse> handleIncorrectPasswordException(IncorrectPasswordException exception) {
+        ErrorResponse errorResponse = ErrorResponse.builder()
+                .statusCode(HttpStatus.CONFLICT.value())
+                .err(exception.getMessage())
+                .timestamp(new Date())
+                .build();
+        return new ResponseEntity<ErrorResponse>(errorResponse, HttpStatus.CONFLICT);
+    }
+
 }
