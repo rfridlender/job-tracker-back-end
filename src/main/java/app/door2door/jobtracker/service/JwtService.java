@@ -20,7 +20,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class JwtService {
 
-    private UserDtoMapper userDtoMapper = new UserDtoMapper();
+    private final UserDtoMapper userDtoMapper = new UserDtoMapper();
 
     @Value("${spring.jwt.secret}")
     private String JWT_SECRET;

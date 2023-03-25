@@ -6,7 +6,6 @@ import app.door2door.jobtracker.dto.UserDto;
 import app.door2door.jobtracker.entity.*;
 import app.door2door.jobtracker.exceptions.EntityNotFoundException;
 import app.door2door.jobtracker.mapper.UserDtoMapper;
-import app.door2door.jobtracker.repository.ContractorRepository;
 import app.door2door.jobtracker.repository.JobRepository;
 import com.cloudinary.utils.ObjectUtils;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +18,6 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
 import com.cloudinary.Cloudinary;
 
 @Service
@@ -27,7 +25,6 @@ import com.cloudinary.Cloudinary;
 public class JobService {
 
     private final JobRepository jobRepository;
-    private final ContractorRepository contractorRepository;
     private final UserDtoMapper userDtoMapper;
     private final Cloudinary cloudinary;
 
@@ -50,7 +47,7 @@ public class JobService {
                 .shelvingStatus(request.getShelvingStatus())
                 .showerStatus(request.getShowerStatus())
                 .mirrorStatus(request.getMirrorStatus())
-                .workLogs(new ArrayList<WorkLog>())
+                .workLogs(new ArrayList<>())
                 .contractor(request.getContractor())
                 .jobSiteAccess(request.getJobSiteAccess())
                 .createdBy(getUser().name())
@@ -73,7 +70,7 @@ public class JobService {
     }
 
     public Job delete(Integer jobId) {
-        Job job = jobRepository.findById(jobId).orElseThrow(() -> new EntityNotFoundException("Job not found"));;
+        Job job = jobRepository.findById(jobId).orElseThrow(() -> new EntityNotFoundException("Job not found"));
             job.getWorkLogs().clear();
         jobRepository.delete(job);
         return job;
@@ -94,4 +91,5 @@ public class JobService {
                 .photo(uploadResponse.get("url").toString())
                 .build();
     }
+
 }

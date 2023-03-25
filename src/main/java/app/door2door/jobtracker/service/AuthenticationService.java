@@ -1,10 +1,8 @@
 package app.door2door.jobtracker.service;
 
 import app.door2door.jobtracker.dto.*;
-import app.door2door.jobtracker.entity.Role;
 import app.door2door.jobtracker.entity.User;
 import app.door2door.jobtracker.exceptions.EmailNotFoundException;
-import app.door2door.jobtracker.exceptions.EmailTakenException;
 import app.door2door.jobtracker.exceptions.EntityNotFoundException;
 import app.door2door.jobtracker.exceptions.IncorrectPasswordException;
 import app.door2door.jobtracker.mapper.UserDtoMapper;

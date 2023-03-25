@@ -39,12 +39,12 @@ public class WorkLogService {
         Time startTime = new Time(
                 parseInt(request.getStartTime().substring(0, 2)),
                 parseInt(request.getStartTime().substring(3, 5)),
-                00
+                0
         );
         Time endTime = new Time(
                 parseInt(request.getEndTime().substring(0, 2)),
                 parseInt(request.getEndTime().substring(3, 5)),
-                00
+                0
         );
         Double millisecondDifference = Double.longBitsToDouble(endTime.getTime() - startTime.getTime());
         Double millisecondHour = Double.longBitsToDouble(3600000);
@@ -78,12 +78,12 @@ public class WorkLogService {
         Time startTime = new Time(
                 parseInt(request.getStartTime().substring(0, 2)),
                 parseInt(request.getStartTime().substring(3, 5)),
-                00
+                0
         );
         Time endTime = new Time(
                 parseInt(request.getEndTime().substring(0, 2)),
                 parseInt(request.getEndTime().substring(3, 5)),
-                00
+                0
         );
         Double millisecondDifference = Double.longBitsToDouble(endTime.getTime() - startTime.getTime());
         Double millisecondHour = Double.longBitsToDouble(3600000);
@@ -111,4 +111,5 @@ public class WorkLogService {
         workLogRepository.deleteById(workLogId);
         return jobRepository.findById(jobId).orElseThrow(() -> new EntityNotFoundException("Job not found"));
     }
+
 }
