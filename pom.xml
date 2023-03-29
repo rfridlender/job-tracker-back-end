@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>app.door2door</groupId>
 	<artifactId>job-tracker</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.2-SNAPSHOT</version>
 	<name>job-tracker-back-end</name>
 	<description>Job Tracker for Door2Door</description>
 	<properties>
