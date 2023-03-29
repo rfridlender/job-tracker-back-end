@@ -10,7 +10,6 @@ import app.door2door.jobtracker.repository.WorkLogRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.Date;

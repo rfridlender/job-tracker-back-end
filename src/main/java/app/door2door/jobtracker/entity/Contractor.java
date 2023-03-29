@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import java.sql.Timestamp;
 
 @Data
 @Builder
@@ -26,7 +25,5 @@ public class Contractor {
     private String phoneNumber;
 
     private String email;
-
-    private Timestamp createdAt;
 
 }

@@ -2,6 +2,7 @@ package app.door2door.jobtracker.config;
 
 import app.door2door.jobtracker.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -13,18 +14,18 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import com.cloudinary.*;
-import io.github.cdimascio.dotenv.Dotenv;
 
 @Configuration
 @RequiredArgsConstructor
 public class ApplicationConfig {
 
     private final UserRepository repository;
-    private final Dotenv dotenv = Dotenv.load();
+    @Value("${cloudinary.url}")
+    private String CLOUDINARY_URL;
 
     @Bean
     public Cloudinary cloudinary() {
-        Cloudinary cloudinary = new Cloudinary(dotenv.get("CLOUDINARY_URL"));
+        Cloudinary cloudinary = new Cloudinary(CLOUDINARY_URL);
         cloudinary.config.secure = true;
         return cloudinary;
     }
